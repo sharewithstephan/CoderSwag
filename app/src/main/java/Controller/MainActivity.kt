@@ -1,18 +1,20 @@
 package Controller
 
 import Adapters.CategoryAdapter
+import Adapters.CategoryRecycleAdapter
 import Model.Category
 import Services.DataServices
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coderswag.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-   lateinit var adapter : CategoryAdapter
+   lateinit var adapter : CategoryRecycleAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,8 +22,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        adapter= CategoryAdapter(this, DataServices.categories)
+        adapter= CategoryRecycleAdapter(this, DataServices.categories)
         catrgoryListView.adapter= adapter
+
+        val layoutManager= LinearLayoutManager(this)  // setting the layout for recycler view
+        catrgoryListView.layoutManager=layoutManager
+
+        catrgoryListView.setHasFixedSize(true)  
 
 
 
