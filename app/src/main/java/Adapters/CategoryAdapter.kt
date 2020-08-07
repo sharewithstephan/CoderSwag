@@ -36,8 +36,6 @@ class CategoryAdapter(context: Context, categories: List<Category>) : BaseAdapte
             holder=convertView.tag as viewHolder
             categoryView=convertView
 
-
-
         }
 
 
