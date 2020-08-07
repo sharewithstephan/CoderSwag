@@ -4,6 +4,8 @@ import Adapters.CategoryAdapter
 import Adapters.CategoryRecycleAdapter
 import Model.Category
 import Services.DataServices
+import Utilities.EXTRA_CATEGORY
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -22,7 +24,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        adapter= CategoryRecycleAdapter(this, DataServices.categories)
+        adapter= CategoryRecycleAdapter(this,DataServices.categories){category ->
+
+        val productIntent=Intent(this,products_activity::class.java)
+
+            productIntent.putExtra(EXTRA_CATEGORY,category.title)
+
+
+            startActivity(productIntent)
+                //println(category.title)
+
+
+        }
         catrgoryListView.adapter= adapter
 
         val layoutManager= LinearLayoutManager(this)  // setting the layout for recycler view
