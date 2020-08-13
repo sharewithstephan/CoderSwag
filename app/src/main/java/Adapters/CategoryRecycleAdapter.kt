@@ -11,7 +11,7 @@ import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coderswag.R
 
-class CategoryRecycleAdapter(val context: Context, val Categories: List<Category>): RecyclerView.Adapter<CategoryRecycleAdapter.Holder>() {
+class CategoryRecycleAdapter(val context: Context, val Categories: List<Category>, val itemClick: (Category)->Unit ): RecyclerView.Adapter<CategoryRecycleAdapter.Holder>() {
 
 
 
@@ -20,7 +20,7 @@ class CategoryRecycleAdapter(val context: Context, val Categories: List<Category
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
 
         val  view= LayoutInflater.from(context).inflate(R.layout.category_list_item, parent,false)
-        return Holder(view)
+        return Holder(view,itemClick)
 
     }
 
@@ -35,7 +35,7 @@ class CategoryRecycleAdapter(val context: Context, val Categories: List<Category
         holder?.bindCategory(Categories[position],context)
     }
 
-    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    inner class Holder(itemView: View,val itemClick: (Category) -> Unit) : RecyclerView.ViewHolder(itemView)
     {
        val categortImage= itemView?.findViewById<ImageView>(R.id.categoryImage)
         val categoryName=itemView?.findViewById<TextView>(R.id.categoryText)
@@ -45,6 +45,8 @@ class CategoryRecycleAdapter(val context: Context, val Categories: List<Category
             categoryName?.text=category.title
             val resourcid=context.resources.getIdentifier(category.image,"drawable",context.packageName)
             categortImage?.setImageResource(resourcid)
+
+            itemView.setOnClickListener { itemClick(category) }
         }
     }
 }
